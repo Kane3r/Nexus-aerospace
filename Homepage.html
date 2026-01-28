@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Aerospace - Exploración Espacial Privada</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0e17;
+            --text-color: #e0e0e0;
+            --primary-color: #0066cc;
+            --secondary-color: #00d4ff;
+            --accent-color: #ff4d00;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --navbar-bg: rgba(10, 14, 23, 0.98);
+            --transition-speed: 0.3s;
+            --menu-text-color: #e0e0e0;
+            --accordion-text-color: #e0e0e0;
+            --mission-status-color: #ffcc00;
+            --mission-text-color: #e0e0e0;
+            --form-bg-color: rgba(30, 35, 50, 0.95);
+        }
+        
+        [data-theme="light"] {
+            --bg-color: #f5f7fa;
+            --text-color: #222222;
+            --primary-color: #1a73e8;
+            --secondary-color: #0077b6;
+            --accent-color: #e63946;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --navbar-bg: rgba(245, 247, 250, 0.98);
+            --menu-text-color: #222222;
+            --accordion-text-color: #222222;
+            --mission-status-color: #b8860b;
+            --mission-text-color: #333333;
+            --form-bg-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+        }
+        
+        /* Neumorphism Effect */
+        .neumorphic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.2),
+                       -9px -9px 16px rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            color: var(--text-color);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Botones - Margen mejorado */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 5px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
+            color: white;
+        }
+        
+        .btn-outline-light {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Cards Hover Effects */
+        .service-card {
+            transition: transform 0.4s, box-shadow 0.4s;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Navbar - Texto legible en ambos temas */
+        .navbar {
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all var(--transition-speed);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--menu-text-color) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: color 0.3s;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: var(--secondary-color) !important;
+            font-weight: 600;
+        }
+        
+        /* Toggle Theme Button */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--menu-text-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Statistics Section */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+                background-color: var(--navbar-bg);
+                border-radius: 10px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .glass-card, .neumorphic-card {
+                padding: 20px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: rgba(20, 25, 40, 0.95);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            color: var(--text-color);
+        }
+        
+        .footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Lazy Loading Images */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Accesibilidad - Focus Styles */
+        a:focus, button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+        
+        /* Brutalist Element */
+        .brutalist-section {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 40px;
+            border-radius: 0;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        /* Sección de Misiones - Texto legible */
+        #missions {
+            color: var(--mission-text-color);
+        }
+        
+        #missions .section-title {
+            color: var(--text-color);
+        }
+        
+        #missions .text-muted {
+            color: var(--text-color) !important;
+            opacity: 0.8;
+        }
+        
+        /* Badges de estado de misión - Más delgados y legibles */
+        .badge {
+            font-weight: 500 !important;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .bg-success {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .bg-warning {
+            background-color: var(--mission-status-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--secondary-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Nombre del cohete en misiones */
+        #missions-container h5 {
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        #missions-container p {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        /*
+        #missions-container .text-muted {
+            color: var(--text-color) !important;
+            opacity: 0.7;
+        }
+        */
+        .text-muted {
+            color: white;
+        }
+        
+        .glass-card.text-muted {
+            color: rgb(76, 129, 179) !important;
+        }
+
+        .section-title {
+            color: white;
+        }
+        
+        /* Acordeones - Texto legible en ambos temas */
+        .accordion-button {
+            background-color: var(--card-bg) !important;
+            color: var(--accordion-text-color) !important;
+            font-weight: 600;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            color: var(--secondary-color) !important;
+            background-color: rgba(var(--primary-color), 0.1) !important;
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+            border-color: var(--primary-color);
+        }
+        
+        .accordion-body {
+            background-color: var(--card-bg);
+            color: var(--accordion-text-color);
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .accordion-item {
+            background-color: transparent;
+            border: none;
+        }
+        
+        /* Sección de Contacto - Sin espacios en blanco */
+        #contact {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            background-color: var(--card-bg);
+        }
+        
+        #contact h2, #contact h4, #contact h5 {
+            color: var(--text-color);
+        }
+        
+        #contact .glass-card {
+            background: var(--form-bg-color);
+            padding: 30px;
+        }
+        
+        /* Formulario de contacto */
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 12px 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+        }
+        
+        .form-label {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        /* Chatbot Simulation */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+        
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Imagen del cohete - Mejor margen */
+        #technology img {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Texto en Glass Card de próxima misión */
+        .glass-card h4, .glass-card h5, .glass-card p {
+            color: var(--text-color);
+        }
+        
+        .glass-card .text-primary {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* Mejoras específicas para tema claro */
+        [data-theme="light"] .navbar-nav .nav-link {
+            color: #333333 !important;
+        }
+        
+        [data-theme="light"] .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        [data-theme="light"] .btn-outline-light {
+            color: #a8a8a8;
+            border-color: #a8a8a8;
+        }
+        
+        [data-theme="light"] .btn-outline-light:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .theme-toggle {
+            color: #333333;
+            border-color: #333333;
+        }
+        
+
+        
+
+        [data-theme="light"] .lead {
+            color: white;
+        }
+
+        .col-lg-67 * {
+          color: white !important;
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .footer {
+            background-color: rgba(240, 242, 245, 0.95);
+        }
+        
+        /* Mejora para texto en progress bar */
+        .progress {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg" style="opacity: 0.8">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-rocket me-2"></i>NEXUS AEROSPACE
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#technology">Tecnología</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#missions">Misiones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <button class="theme-toggle" id="toggle-theme" aria-label="Cambiar tema">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content fade-in">
+                        <h1 class="hero-title">EL FUTURO DEL ESPACIO ES PRIVADO</h1>
+                        <p class="lead mb-4">En Nexus Aerospace estamos redefiniendo los límites de la exploración espacial con tecnología innovadora, misiones comerciales y soluciones sostenibles para la nueva economía espacial.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#services" class="btn btn-primary-custom">Nuestros Servicios</a>
+                            <a href="#missions" class="btn btn-outline-light">Ver Misiones</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-card mt-5 mt-lg-0">
+                        <h4 class="mb-3">Próximo Lanzamiento</h4>
+                        <h5 class="text-primary">Misión Artemis IX</h5>
+                        <p class="mb-2"><i class="far fa-calendar me-2"></i>14 Enero, 2026</p>
+                        <p class="mb-3"><i class="fas fa-map-marker-alt me-2"></i>Spaceport Nexus, Florida</p>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="mt-2 small">Preparación: 85% completa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Statistics Section -->
+    <section class="py-5" id="stats">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="neumorphic-card p-4">
+                        <h3 class="stat-number">24</h3>
+                        <p>Lanzamientos exitosos</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="neumorphic-card p-4">
+                        <h3 class="stat-number">185</h3>
+                        <p>Satélites desplegados</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="neumorphic-card p-4">
+                        <h3 class="stat-number">12</h3>
+                        <p>Países asociados</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="neumorphic-card p-4">
+                        <h3 class="stat-number">3</h3>
+                        <p>Misiones lunares programadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="py-5 bg-dark" id="services">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title mb-3">Servicios Aeroespaciales</h2>
+                    <p class="text-muted" style="color: #44866b !important">Ofrecemos soluciones integrales para la nueva era espacial</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card service-card h-100">
+                        <div class="icon-wrapper mb-4 text-primary">
+                            <i class="fas fa-satellite fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Despliegue de Satélites</h4>
+                        <p>Lanzamiento y despliegue de constelaciones de satélites para comunicaciones, observación terrestre y ciencia.</p>
+                        <ul class="mt-3">
+                            <li>Órbitas LEO, MEO y GEO</li>
+                            <li>Costes reducidos en 40%</li>
+                            <li>Plazos de lanzamiento flexibles</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="glass-card service-card h-100">
+                        <div class="icon-wrapper mb-4 text-primary">
+                            <i class="fas fa-space-shuttle fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Transporte Orbital</h4>
+                        <p>Servicios de carga y transporte de suministros a la Estación Espacial Internacional y futuras estaciones comerciales.</p>
+                        <ul class="mt-3">
+                            <li>Capacidad de carga: 6,000 kg</li>
+                            <li>Vehículos reutilizables</li>
+                            <li>Docking automático</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="glass-card service-card h-100">
+                        <div class="icon-wrapper mb-4 text-primary">
+                            <i class="fas fa-moon fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Misiones Lunares</h4>
+                        <p>Servicios de transporte a la Luna para carga científica, rovers y futuras bases lunares comerciales.</p>
+                        <ul class="mt-3">
+                            <li>Alunizaje de precisión</li>
+                            <li>Capacidad para 500 kg</li>
+                            <li>Retorno de muestras lunares</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technology Section -->
+    <section class="py-5" id="technology">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Tecnología de Vanguardia</h2>
+                    <p class="mb-4">Nuestros cohetes reutilizables reducen los costes de lanzamiento en un 70% comparado con los métodos tradicionales.</p>
+                    
+                    <div class="accordion" id="techAccordion">
+                        <div class="accordion-item glass-card border-0 mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Cohetes Reutilizables
+                                </button>
+                            </h3>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Nuestra tecnología de recuperación y reutilización de primera etapa permite hasta 10 vuelos por cohete.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item glass-card border-0 mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Impresión 3D de Motores
+                                </button>
+                            </h3>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Fabricación aditiva de componentes críticos reduce tiempos de producción en un 60%.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item glass-card border-0">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Guiado Autónomo
+                                </button>
+                            </h3>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Sistemas de navegación autónoma permiten alunizajes de precisión con margen de error menor a 10 metros.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="position-relative">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXG7zV2ukXSVeYGnsgPh5Hiyd3RjSabO8xg&s" 
+                             alt="Cohete aeroespacial en plataforma de lanzamiento" 
+                             class="img-fluid rounded lazy loaded"
+                             loading="lazy"
+                             width="800"
+                             height="600"
+                             style="backdrop-filter: blur(10px)"
+                             >
+                        <div class="glass-card position-absolute bottom-0 start-0 m-3 p-3">
+                            <small class="text-muted" style="color:#447bc4 !important">Nexus-7 en plataforma de lanzamiento</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Brutalist Section -->
+    <section class="brutalist-section">
+        <div class="container">
+            <h2 class="mb-3">¡ROMPIENDO PARADIGMAS!</h2>
+            <p class="mb-4">No seguimos las reglas tradicionales. Creamos nuestro propio camino en la exploración espacial.</p>
+            <a href="#contact" class="btn btn-light btn-lg">ÚNETE A LA REVOLUCIÓN</a>
+        </div>
+    </section>
+    
+    <!-- Missions Section -->
+    <section class="py-5" id="missions">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title mb-3">Próximas Misiones</h2>
+                    <p class="text-muted">Nuestro calendario de lanzamientos para 2026</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Las misiones se cargarán dinámicamente con JavaScript -->
+                <div id="missions-container" class="row g-4">
+                    <!-- Contenido dinámico desde API simulada -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="py-5 bg-dark" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-67">
+                      <h2 class="mb-4">Contacto</h2>
+                      <p class="mb-4">¿Interesado en nuestros servicios? Contáctanos para más información.</p>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-map-marker-alt me-2 text-primary"></i> Dirección</h5>
+                          <p>Spaceport Nexus, Carretera Espacial 1, Cabo Cañaveral, Florida 32920, USA</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-phone me-2 text-primary"></i> Teléfono</h5>
+                          <p>+1 (321) 867-5309</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-envelope me-2 text-primary"></i> Email</h5>
+                          <p>contact@nexusaerospace.com</p>
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h4 class="mb-4">Formulario de Contacto</h4>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="service" class="form-label">Servicio de interés</label>
+                                <select class="form-select" id="service">
+                                    <option>Despliegue de satélites</option>
+                                    <option>Transporte orbital</option>
+                                    <option>Misiones lunares</option>
+                                    <option>Asociación comercial</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="message" rows="4" required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary-custom">Enviar Mensaje</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Nexus Aerospace</h5>
+                    <p>Liderando la nueva era de la exploración espacial privada con tecnología innovadora y soluciones sostenibles.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#services">Servicios</a></li>
+                        <li><a href="#technology">Tecnología</a></li>
+                        <li><a href="#missions">Misiones</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Suscríbete</h5>
+                    <p>Recibe las últimas noticias sobre nuestros lanzamientos y avances tecnológicos.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Tu email" id="newsletter-email">
+                        <button class="btn btn-primary" type="button" id="subscribe-btn">Suscribirse</button>
+                    </div>
+                    <p class="small text-muted">
+                      <a style="color: #44688b !important">Al suscribirte aceptas nuestra </a><a href="#">política de privacidad</a>.
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="small">&copy; 2026 Nexus Aerospace. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="small">
+                        <a href="#" class="me-3">Términos de servicio</a>
+                        <a href="#" class="me-3">Política de privacidad</a>
+                        <a href="#">Accesibilidad (WCAG 2.1)</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbot Simulation -->
+    <div class="chatbot-icon" id="chatbot-toggle" aria-label="Abrir asistente virtual">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Dark/Light Mode Toggle
+        const toggleButton = document.getElementById('toggle-theme');
+        const themeIcon = toggleButton.querySelector('i');
+        
+        // Cargar preferencia de tema desde localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        toggleButton.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-moon';
+                toggleButton.setAttribute('aria-label', 'Cambiar a modo claro');
+            } else {
+                themeIcon.className = 'fas fa-sun';
+                toggleButton.setAttribute('aria-label', 'Cambiar a modo oscuro');
+            }
+        }
+        
+        // Simulación de API para cargar misiones (contenido dinámico)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Datos simulados de API
+            const missions = [
+                {
+                    name: "Artemis IX",
+                    date: "14 Ene 2026",
+                    description: "Suministros a la Estación Espacial Lunar Gateway",
+                    status: "Programada",
+                    type: "Orbital"
+                },
+                {
+                    name: "Starlink Batch 45",
+                    date: "28 Feb 2026",
+                    description: "Despliegue de 60 satélites para constelación de internet",
+                    status: "En preparación",
+                    type: "Comercial"
+                },
+                {
+                    name: "Lunar Resource Prospector",
+                    date: "15 Mar 2026",
+                    description: "Misión de exploración de recursos lunares para NASA",
+                    status: "Programada",
+                    type: "Científica"
+                },
+                {
+                    name: "Nexus-7 Test Flight",
+                    date: "10 Abr 2026",
+                    description: "Vuelo de prueba del nuevo cohete reutilizable",
+                    status: "En desarrollo",
+                    type: "Experimental"
+                }
+            ];
+            
+            // Renderizar misiones
+            const missionsContainer = document.getElementById('missions-container');
+            missions.forEach(mission => {
+                const missionCard = `
+                    <div class="col-md-6 col-lg-3">
+                        <div class="neumorphic-card h-100">
+                            <span class="badge bg-${mission.status === 'Programada' ? 'success' : 'warning'} mb-2">${mission.status}</span>
+                            <h5 class="mb-2">${mission.name}</h5>
+                            <p class="text-muted small mb-2"><i class="far fa-calendar me-1"></i>${mission.date}</p>
+                            <p class="mb-3">${mission.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">${mission.type}</span>
+                                <button class="btn btn-sm btn-outline-primary">Más info</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                missionsContainer.innerHTML += missionCard;
+            });
+            
+            // Lazy Loading para imágenes
+            const lazyImages = document.querySelectorAll('img.lazy');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
+            
+            // Manejo del formulario de contacto
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulación de envío
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // Guardar en localStorage (simulación)
+                localStorage.setItem('contactFormData', JSON.stringify(formData));
+                
+                // Mostrar confirmación
+                alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+                contactForm.reset();
+            });
+            
+            // Suscripción al newsletter
+            const subscribeBtn = document.getElementById('subscribe-btn');
+            subscribeBtn.addEventListener('click', function() {
+                const email = document.getElementById('newsletter-email').value;
+                
+                if (email && validateEmail(email)) {
+                    // Guardar en localStorage
+                    let subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+                    subscriptions.push({email: email, date: new Date().toISOString()});
+                    localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+                    
+                    alert('¡Gracias por suscribirte!');
+                    document.getElementById('newsletter-email').value = '';
+                } else {
+                    alert('Por favor, introduce un email válido.');
+                }
+            });
+            
+            // Chatbot simulation
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            chatbotToggle.addEventListener('click', function() {
+                alert('¡Hola! Soy Aria, la asistente virtual de Nexus Aerospace. ¿En qué puedo ayudarte?');
+            });
+            
+            // Validación de email
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Smooth scrolling para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === "#") return;
+                    
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Microinteracción para las cards de servicios al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Aplicar a las cards de servicios
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
