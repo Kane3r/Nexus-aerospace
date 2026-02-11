@@ -16,6 +16,552 @@
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+                :root {
+            --bg-color: #0a0e17;
+            --text-color: #e0e0e0;
+            --primary-color: #0066cc;
+            --secondary-color: #00d4ff;
+            --accent-color: #ff4d00;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --navbar-bg: rgba(10, 14, 23, 0.98);
+            --transition-speed: 0.3s;
+            --menu-text-color: #e0e0e0;
+            --accordion-text-color: #e0e0e0;
+            --mission-status-color: #ffcc00;
+            --mission-text-color: #e0e0e0;
+            --form-bg-color: rgba(30, 35, 50, 0.95);
+        }
+        
+        [data-theme="light"] {
+            --bg-color: #f5f7fa;
+            --text-color: #222222;
+            --primary-color: #1a73e8;
+            --secondary-color: #0077b6;
+            --accent-color: #e63946;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --navbar-bg: rgba(245, 247, 250, 0.98);
+            --menu-text-color: #222222;
+            --accordion-text-color: #222222;
+            --mission-status-color: #b8860b;
+            --mission-text-color: #333333;
+            --form-bg-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+        }
+        
+        /* Neumorphism Effect */
+        .neumorphic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.2),
+                       -9px -9px 16px rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            color: var(--text-color);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Botones - Margen mejorado */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 5px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
+            color: white;
+        }
+        
+        .btn-outline-light {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Cards Hover Effects */
+        .service-card {
+            transition: transform 0.4s, box-shadow 0.4s;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Navbar - Texto legible en ambos temas */
+        .navbar {
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all var(--transition-speed);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--menu-text-color) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: color 0.3s;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: var(--secondary-color) !important;
+            font-weight: 600;
+        }
+        
+        /* Toggle Theme Button */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--menu-text-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Statistics Section */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+                background-color: var(--navbar-bg);
+                border-radius: 10px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .glass-card, .neumorphic-card {
+                padding: 20px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: rgba(20, 25, 40, 0.95);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            color: var(--text-color);
+        }
+        
+        .footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Lazy Loading Images */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Accesibilidad - Focus Styles */
+        a:focus, button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+        
+        /* Brutalist Element */
+        .brutalist-section {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 40px;
+            border-radius: 0;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        /* Sección de Misiones - Texto legible */
+        #missions {
+            color: var(--mission-text-color);
+        }
+        
+        #missions .section-title {
+            color: var(--text-color);
+        }
+        
+        #missions .text-muted {
+            color: var(--text-color) !important;
+            opacity: 0.8;
+        }
+        
+        /* Badges de estado de misión - Más delgados y legibles */
+        .badge {
+            font-weight: 500 !important;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .bg-success {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .bg-warning {
+            background-color: var(--mission-status-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--secondary-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Nombre del cohete en misiones */
+        #missions-container h5 {
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        #missions-container p {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        /*
+        #missions-container .text-muted {
+            color: var(--text-color) !important;
+            opacity: 0.7;
+        }
+        */
+        .text-muted {
+            color: white;
+        }
+        
+        .glass-card.text-muted {
+            color: rgb(76, 129, 179) !important;
+        }
+
+        .section-title {
+            color: white;
+        }
+        
+        /* Acordeones - Texto legible en ambos temas */
+        .accordion-button {
+            background-color: var(--card-bg) !important;
+            color: var(--accordion-text-color) !important;
+            font-weight: 600;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            color: var(--secondary-color) !important;
+            background-color: rgba(var(--primary-color), 0.1) !important;
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+            border-color: var(--primary-color);
+        }
+        
+        .accordion-body {
+            background-color: var(--card-bg);
+            color: var(--accordion-text-color);
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .accordion-item {
+            background-color: transparent;
+            border: none;
+        }
+        
+        /* Sección de Contacto - Sin espacios en blanco */
+        #contact {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            background-color: var(--card-bg);
+        }
+        
+        #contact h2, #contact h4, #contact h5 {
+            color: var(--text-color);
+        }
+        
+        #contact .glass-card {
+            background: var(--form-bg-color);
+            padding: 30px;
+        }
+        
+        /* Formulario de contacto */
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 12px 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+        }
+        
+        .form-label {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        /* Chatbot Simulation */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+        
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Imagen del cohete - Mejor margen */
+        #technology img {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Texto en Glass Card de próxima misión */
+        .glass-card h4, .glass-card h5, .glass-card p {
+            color: var(--text-color);
+        }
+        
+        .glass-card .text-primary {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* Mejoras específicas para tema claro */
+        [data-theme="light"] .navbar-nav .nav-link {
+            color: #333333 !important;
+        }
+        
+        [data-theme="light"] .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        [data-theme="light"] .btn-outline-light {
+            color: #a8a8a8;
+            border-color: #a8a8a8;
+        }
+        
+        [data-theme="light"] .btn-outline-light:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .theme-toggle {
+            color: #333333;
+            border-color: #333333;
+        }
+        
+
+        
+
+        [data-theme="light"] .lead {
+            color: white;
+        }
+
+        .col-lg-67 * {
+          color: white !important;
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .footer {
+            background-color: rgba(240, 242, 245, 0.95);
+        }
+        
+        /* Mejora para texto en progress bar */
+        .progress {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+  
+    </style>
     
 </head>
 <body data-theme="dark">
