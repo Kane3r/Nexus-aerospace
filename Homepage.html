@@ -684,14 +684,114 @@
         
         /* Brutalist Element */
         .brutalist-section {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 40px;
-            border-radius: 0;
-            margin: 40px 0;
-            text-align: center;
+        background: linear-gradient(270deg, 
+            rgba(255, 77, 0, 0.9),    /* Naranja intenso */
+            rgba(0, 102, 204, 0.9),   /* Azul primario */
+            rgba(0, 212, 255, 0.9),   /* Azul secundario */
+            rgba(147, 51, 234, 0.9)   /* Púrpura */
+        );
+        background-size: 400% 400%;
+        color: white;
+        padding: 60px 40px;
+        margin: 40px 0;
+        text-align: center;
+        border-radius: 0;
+        position: relative;
+        overflow: hidden;
+        animation: gradientShift 12s ease infinite;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .brutalist-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+        }
+        @keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+        25% {
+            background-position: 50% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        75% {
+            background-position: 50% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+        }
+        [data-theme="light"] .brutalist-section {
+        background: linear-gradient(270deg,
+            rgba(230, 57, 70, 0.95),  /* Rojo suave */
+            rgba(26, 115, 232, 0.95), /* Azul claro */
+            rgba(0, 119, 182, 0.95),  /* Azul oscuro */
+            rgba(108, 99, 255, 0.95)  /* Púrpura suave */
+        );
+        background-size: 400% 400%;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+        .brutalist-section .btn-light {
+        background: rgba(255, 255, 255, 0.95);
+        color: #222;
+        border: none;
+        padding: 15px 35px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 50px;
+        transition: all 0.4s;
+        position: relative;
+        z-index: 3;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .brutalist-section .btn-light:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        background: white;
+    }
+
+    /* Media queries para responsive */
+    @media (max-width: 768px) {
+        .brutalist-section {
+            padding: 50px 20px;
+            animation-duration: 8s; /* Animación más rápida en móvil */
         }
         
+        .brutalist-section h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .brutalist-section {
+            padding: 40px 15px;
+        }
+        
+        .brutalist-section h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+[data-theme="light"] .brutalist-section::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+    /* Asegurar que el contenido esté por encima del overlay */
+    .brutalist-section .container {
+        position: relative;
+        z-index: 2;
+    }
+            
         /* Sección de Misiones - Texto legible */
         #missions {
             color: var(--mission-text-color);
