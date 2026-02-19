@@ -735,6 +735,71 @@
             animation: pulse 2s infinite;
         }
         
+        /* ===== NUEVOS ESTILOS PARA LA SECCIÓN DE VIDEO ===== */
+        .video-showcase-section {
+            background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+        }
+        
+        .video-wrapper {
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .video-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .ratio {
+            border: 3px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        iframe {
+            border: none;
+            transition: filter 1s ease;
+        }
+        
+        iframe:hover {
+            filter: brightness(1.1) saturate(1.2);
+        }
+        
+        .video-caption .badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .video-content h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            animation: slideInLeft 0.8s ease-out;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .video-content p {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .video-content .row {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .video-content .btn {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .video-content .stat-number {
+            font-size: 2.2rem !important;
+        }
+        
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
@@ -771,6 +836,14 @@
             
             .carousel-caption p {
                 font-size: 0.9rem;
+            }
+            
+            .video-content h3 {
+                font-size: 1.8rem;
+            }
+            
+            .video-wrapper {
+                margin-bottom: 20px;
             }
         }
         
@@ -1378,6 +1451,64 @@
             </div>
         </div>
     </section>
+
+    <!-- ===== NUEVA SECCIÓN DE VIDEO ANIMADO CON YOUTUBE ===== -->
+    <section class="video-showcase-section py-5" id="video-showcase">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h2 class="section-title mb-3">EXPLORACIÓN EN MOVIMIENTO</h2>
+                    <p class="text-muted">Un vistazo a la potencia y elegancia de nuestros lanzamientos</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="video-wrapper glass-card p-3">
+                        <!-- Video de YouTube en bucle, sin controles, reproducción automática -->
+                        <div class="ratio ratio-16x9">
+                            <iframe 
+                                src="https://www.youtube.com/embed/0qo78R_yYFA?autoplay=1&mute=1&loop=1&playlist=0qo78R_yYFA&controls=0&showinfo=0&rel=0&modestbranding=1" 
+                                title="Lanzamiento de cohete SpaceX"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-caption mt-3 text-center">
+                            <span class="badge">LANZAMIENTO DEMO • FALCON HEAVY</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="video-content ps-lg-4">
+                        <h3 class="mb-3">TECNOLOGÍA EN ACCIÓN</h3>
+                        <p class="lead mb-4">Cada lanzamiento es una obra de ingeniería. Nuestros cohetes reutilizables despegan y aterrizan con una precisión milimétrica, demostrando que el futuro del espacio ya está aquí.</p>
+                        
+                        <!-- Estadísticas rápidas en columnas -->
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="neumorphic-card p-3 text-center">
+                                    <h4 class="stat-number mb-1" style="font-size: 2.2rem;">154</h4>
+                                    <p class="mb-0 small">Aterrizajes exitosos</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="neumorphic-card p-3 text-center">
+                                    <h4 class="stat-number mb-1" style="font-size: 2.2rem;">12</h4>
+                                    <p class="mb-0 small">Misiones a Marte</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="#contact" class="btn btn-primary-custom me-2"><i class="fas fa-play-circle me-2"></i>Ver más lanzamientos</a>
+                            <a href="#technology" class="btn btn-outline-light"><i class="fas fa-info-circle me-2"></i>Más información</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===== FIN DE NUEVA SECCIÓN DE VIDEO ANIMADO ===== -->
     
     <!-- Services Section -->
     <section class="py-5 bg-dark" id="services">
@@ -1495,9 +1626,7 @@
                              class="img-fluid rounded lazy loaded"
                              loading="lazy"
                              width="800"
-                             height="600"
-                             style="backdrop-filter: blur(10px)"
-                             >
+                             height="600">
                         <div class="glass-card position-absolute bottom-0 start-0 m-3 p-3">
                             <small class="text-muted" style="color:#447bc4 !important">Starship - El futuro de la exploración</small>
                         </div>
@@ -1856,12 +1985,6 @@
             heroButtons.forEach((button, index) => {
                 button.style.animation = `slideInRight 0.8s ease-out ${index * 0.2}s both`;
             });
-
-            // Agregar efecto de pulse al botón de próximo lanzamiento
-            const nextLaunchBtn = document.querySelector('.glass-card .btn-primary-custom');
-            if (nextLaunchBtn) {
-                nextLaunchBtn.style.animation = 'pulse 2s infinite';
-            }
 
             // Iniciar el carrusel con intervalo más largo y transiciones suaves
             const carousel = new bootstrap.Carousel(document.getElementById('rocketCarousel'), {
