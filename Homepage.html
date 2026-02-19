@@ -133,10 +133,17 @@
 
         /* ANIMACIONES MEJORADAS PARA BOTONES */
         
+        /* Keyframes para animaciones de botones */
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 102, 204, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 102, 204, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 204, 0);
+            }
         }
 
         @keyframes shake {
@@ -156,13 +163,30 @@
         }
 
         @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         @keyframes rotate {
@@ -190,7 +214,7 @@
             cursor: pointer;
         }
 
-        /* Efecto ripple */
+        /* Efecto ripple mejorado */
         .btn-primary-custom::after, .btn-outline-light::after, .btn-light::after {
             content: '';
             position: absolute;
@@ -206,8 +230,14 @@
         }
 
         @keyframes ripple {
-            0% { transform: scale(0, 0) translate(-50%, -50%); opacity: 0.7; }
-            100% { transform: scale(20, 20) translate(-50%, -50%); opacity: 0; }
+            0% {
+                transform: scale(0, 0) translate(-50%, -50%);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(20, 20) translate(-50%, -50%);
+                opacity: 0;
+            }
         }
 
         .btn-primary-custom:focus:not(:active)::after,
@@ -216,7 +246,7 @@
             animation: ripple 0.8s ease-out;
         }
 
-        /* Botón primario */
+        /* Botón primario mejorado */
         .btn-primary-custom {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
@@ -239,7 +269,11 @@
             animation: float 1s infinite;
         }
 
-        /* Botón outline */
+        .btn-primary-custom:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Botón outline mejorado */
         .btn-outline-light {
             padding: 14px 32px;
             border-radius: 50px;
@@ -261,6 +295,84 @@
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
             animation: glow 1.5s infinite;
+        }
+
+        .btn-outline-light:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Botón de light en brutalist section */
+        .brutalist-section .btn-light {
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 600;
+            background: white;
+            color: var(--accent-color);
+            border: 2px solid white;
+            animation: slideInRight 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .brutalist-section .btn-light:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Botón de suscripción */
+        #subscribe-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #subscribe-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        #subscribe-btn i {
+            transition: transform 0.3s;
+        }
+
+        #subscribe-btn:hover i {
+            animation: rotate 0.8s ease-in-out;
+        }
+
+        /* Botón "Más info" en misiones */
+        .btn-outline-primary {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--secondary-color);
+            color: #000;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline-primary:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         /* Toggle Theme Button */
@@ -285,6 +397,10 @@
             transform: rotate(180deg) scale(1.1);
             border-color: var(--secondary-color);
             box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.5s;
         }
 
         .theme-toggle:hover i {
@@ -319,6 +435,98 @@
             animation: none;
         }
 
+        .chatbot-icon i {
+            transition: transform 0.3s;
+        }
+
+        .chatbot-icon:hover i {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Navbar links como botones */
+        .navbar-nav .nav-link {
+            color: var(--menu-text-color) !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: all 0.3s;
+            position: relative;
+            border-radius: 25px;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--secondary-color) !important;
+            font-weight: 600;
+            background: rgba(0, 212, 255, 0.15);
+        }
+
+        /* Botones en cards de misiones */
+        .neumorphic-card .btn-sm {
+            transition: all 0.3s;
+        }
+
+        .neumorphic-card .btn-sm:hover {
+            transform: scale(1.1) translateX(5px);
+            background: var(--secondary-color);
+            color: #000;
+            border-color: var(--secondary-color);
+        }
+
+        /* Enlaces del footer */
+        .footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+            text-decoration: underline;
+        }
+
+        .footer .social-icons a {
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer .social-icons a:hover {
+            transform: translateY(-5px) scale(1.2);
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        /* Botón de envío en formulario */
+        #contact-form .btn-primary-custom {
+            width: 100%;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite;
+        }
+
+        #contact-form .btn-primary-custom:hover {
+            transform: translateY(-5px) scale(1.02);
+            letter-spacing: 2px;
+        }
+
+        /* Cards Hover Effects */
+        .service-card {
+            transition: transform 0.4s, box-shadow 0.4s;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
         /* Navbar */
         .navbar {
             background-color: var(--navbar-bg);
@@ -342,21 +550,6 @@
             color: transparent;
         }
         
-        .navbar-nav .nav-link {
-            color: var(--menu-text-color) !important;
-            font-weight: 500;
-            padding: 8px 15px !important;
-            transition: all 0.3s;
-            position: relative;
-            border-radius: 25px;
-        }
-        
-        .navbar-nav .nav-link:hover {
-            color: var(--secondary-color) !important;
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
         /* Statistics Section */
         .stat-number {
             font-size: 3rem;
@@ -368,140 +561,102 @@
             color: transparent;
         }
         
-        /* ===== CARRUSEL 3D ULTRA SUAVE CON EFECTO DE PROFUNDIDAD ===== */
+        /* ===== CARRUSEL MEJORADO - TRANSICIONES ULTRA SUAVES ===== */
         .rocket-carousel-section {
             padding: 60px 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+            background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3));
             position: relative;
             overflow: hidden;
-            perspective: 1200px; /* Perspectiva 3D para el carrusel */
         }
         
-        /* Contenedor con efecto 3D */
+        /* Transiciones ultra suaves con cubic-bezier personalizado */
         .carousel {
-            border-radius: 30px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(0, 212, 255, 0.2) inset;
-            transform-style: preserve-3d;
-            transition: box-shadow 0.5s;
-        }
-        
-        .carousel:hover {
-            box-shadow: 0 40px 70px rgba(0, 212, 255, 0.4), 0 0 0 3px rgba(0, 212, 255, 0.4) inset;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         .carousel-inner {
-            border-radius: 30px;
+            border-radius: 25px;
             overflow: hidden;
-            transform-style: preserve-3d;
         }
         
-        /* Items con transición 3D y perspectiva */
         .carousel-item {
-            transition: transform 1s cubic-bezier(0.2, 0.9, 0.3, 1.1) !important;
-            transition-duration: 1s !important;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            position: relative;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.98) !important;
+            transition-duration: 1.2s !important;
         }
         
-        /* Animación de entrada con rotación 3D suave */
-        .carousel-item-next:not(.carousel-item-start),
-        .carousel-item-prev:not(.carousel-item-end) {
-            transform: perspective(1200px) rotateY(0deg) translateZ(0);
-        }
-        
-        .carousel-item.active {
-            transform: perspective(1200px) rotateY(0deg) translateZ(20px); /* Efecto de flotación 3D */
-        }
-        
-        /* Imagen con efecto parallax y profundidad */
         .carousel-item img {
             height: 550px;
             object-fit: cover;
             object-position: center 30%;
-            border-radius: 30px;
-            border: 3px solid rgba(255,255,255,0.2);
-            transform: scale(1) translateZ(0);
-            transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), filter 0.8s, box-shadow 0.8s;
-            filter: brightness(0.9) saturate(1.2) drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+            border-radius: 25px;
+            border: 3px solid rgba(255,255,255,0.15);
+            transform: scale(1);
+            transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.98), filter 1.5s ease;
+            filter: brightness(0.9) saturate(1.2);
         }
         
         .carousel-item.active img {
-            transform: scale(1.08) translateZ(30px); /* Zoom suave y efecto 3D */
-            filter: brightness(1.1) saturate(1.4) drop-shadow(0 20px 30px rgba(0,212,255,0.3));
-            box-shadow: 0 30px 40px -10px var(--secondary-color);
-            transition: transform 8s cubic-bezier(0.1, 0.9, 0.2, 1), filter 2s, box-shadow 2s;
+            transform: scale(1.05);
+            filter: brightness(1) saturate(1.3);
+            transition: transform 12s cubic-bezier(0.25, 0.46, 0.45, 0.98), filter 2s ease;
         }
         
-        /* Efecto de profundidad con pseudo-elementos */
-        .carousel-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(0,212,255,0.1), transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.8s;
+        /* Efecto de zoom lento y suave */
+        .carousel-item {
+            overflow: hidden;
         }
         
-        .carousel-item.active::before {
-            opacity: 1;
+        .carousel-item img {
+            transition: transform 8s ease-out, filter 2s ease;
         }
         
-        /* Captions con animación 3D flotante */
+        /* Captions con animación suave */
         .carousel-caption {
-            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
             border-radius: 20px;
             bottom: 30px;
             padding: 35px;
             left: 10%;
             right: 10%;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.2);
-            transform: translateY(20px) translateZ(10px);
+            transform: translateY(20px);
             opacity: 0;
-            animation: slideUpCaption3D 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+            animation: slideUpCaption 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.98) forwards;
             animation-delay: 0.3s;
-            box-shadow: 0 -10px 30px rgba(0,212,255,0.2);
-            text-shadow: 0 2px 5px black;
         }
         
-        @keyframes slideUpCaption3D {
+        @keyframes slideUpCaption {
             from {
                 opacity: 0;
-                transform: translateY(30px) translateZ(0);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) translateZ(20px);
+                transform: translateY(0);
             }
         }
         
         .carousel-caption h3 {
             font-size: 2.2rem;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             margin-bottom: 10px;
             letter-spacing: 2px;
-            transform: translateZ(15px);
         }
         
         .carousel-caption p {
             font-size: 1.1rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
             opacity: 0.9;
-            transform: translateZ(10px);
         }
         
-        /* Indicadores con efecto 3D */
+        /* Indicadores mejorados */
         .carousel-indicators {
             bottom: 20px;
             gap: 10px;
-            z-index: 5;
         }
         
         .carousel-indicators button {
@@ -512,73 +667,61 @@
             background-color: var(--secondary-color);
             border: 2px solid transparent;
             opacity: 0.6;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 0 10px rgba(0,212,255,0.3);
-            transform: translateZ(0);
         }
         
         .carousel-indicators button.active {
             opacity: 1;
-            transform: scale(1.5) translateZ(20px);
+            transform: scale(1.4);
             background-color: var(--primary-color);
             border-color: white;
-            box-shadow: 0 0 30px var(--secondary-color);
+            box-shadow: 0 0 20px var(--secondary-color);
         }
         
-        /* Controles con animación 3D y hover suave */
+        /* Controles mejorados */
         .carousel-control-prev, .carousel-control-next {
-            width: 8%;
+            width: 6%;
             opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1), background 0.5s;
-            background: linear-gradient(90deg, rgba(0,0,0,0.5), transparent);
-            border-radius: 30px 0 0 30px;
-            transform: translateZ(0);
-            z-index: 10;
+            transition: opacity 0.5s ease, transform 0.3s ease;
+            background: linear-gradient(90deg, rgba(0,0,0,0.3), transparent);
+            border-radius: 25px 0 0 25px;
         }
         
         .carousel-control-next {
-            background: linear-gradient(-90deg, rgba(0,0,0,0.5), transparent);
-            border-radius: 0 30px 30px 0;
+            background: linear-gradient(-90deg, rgba(0,0,0,0.3), transparent);
+            border-radius: 0 25px 25px 0;
         }
         
         .carousel:hover .carousel-control-prev,
         .carousel:hover .carousel-control-next {
-            opacity: 0.9;
+            opacity: 1;
         }
         
         .carousel-control-prev:hover,
         .carousel-control-next:hover {
-            transform: scale(1.1) translateZ(30px);
-            background: linear-gradient(90deg, rgba(0,212,255,0.3), transparent);
-            opacity: 1 !important;
-        }
-        
-        .carousel-control-next:hover {
-            background: linear-gradient(-90deg, rgba(0,212,255,0.3), transparent);
+            transform: scale(1.05);
+            background: linear-gradient(90deg, rgba(0,0,0,0.5), transparent);
         }
         
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(0,0,0,0.7);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0,0,0,0.5);
             border-radius: 50%;
             padding: 10px;
-            border: 2px solid var(--secondary-color);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3);
-            box-shadow: 0 0 15px var(--secondary-color);
-            background-size: 60%;
+            border: 2px solid white;
+            transition: all 0.3s;
         }
         
         .carousel-control-prev:hover .carousel-control-prev-icon,
         .carousel-control-next:hover .carousel-control-next-icon {
             background-color: var(--primary-color);
-            transform: scale(1.3) rotate(360deg);
-            border-color: white;
-            box-shadow: 0 0 30px white;
+            transform: scale(1.2);
         }
         
-        /* Badges en carrusel con efecto 3D */
+        /* Badges en carrusel */
         .carousel-caption .badge {
             font-size: 0.9rem;
             padding: 8px 16px;
@@ -588,27 +731,148 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 20px var(--secondary-color);
-            animation: pulse 3s infinite;
-            transform: translateZ(15px);
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        /* ===== NUEVOS ESTILOS PARA LA SECCIÓN DE VIDEO ===== */
+        .video-showcase-section {
+            background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0;
+        }
+        
+        .video-wrapper {
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .video-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .ratio {
+            border: 3px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        iframe {
+            border: none;
+            transition: filter 1s ease;
+        }
+        
+        iframe:hover {
+            filter: brightness(1.1) saturate(1.2);
+        }
+        
+        .video-caption .badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .video-content h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            animation: slideInLeft 0.8s ease-out;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .video-content p {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .video-content .row {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .video-content .btn {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .video-content .stat-number {
+            font-size: 2.2rem !important;
         }
         
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .stat-number { font-size: 2.5rem; }
-            .carousel-item img { height: 400px; }
-            .carousel-caption { padding: 20px; }
-            .carousel-caption h3 { font-size: 1.5rem; }
-            .carousel-caption p { font-size: 0.9rem; }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+                background-color: var(--navbar-bg);
+                border-radius: 10px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+            
+            .carousel-item img {
+                height: 400px;
+            }
+            
+            .carousel-caption {
+                padding: 20px;
+            }
+            
+            .carousel-caption h3 {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+            
+            .video-content h3 {
+                font-size: 1.8rem;
+            }
+            
+            .video-wrapper {
+                margin-bottom: 20px;
+            }
         }
         
         @media (max-width: 576px) {
-            .hero-title { font-size: 2rem; }
-            .carousel-item img { height: 300px; }
-            .carousel-caption { padding: 15px; left: 5%; right: 5%; }
-            .carousel-caption h3 { font-size: 1.2rem; }
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .glass-card, .neumorphic-card {
+                padding: 20px;
+            }
+            
+            .btn-primary-custom, .btn-outline-light {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
+            
+            .carousel-item img {
+                height: 300px;
+            }
+            
+            .carousel-caption {
+                padding: 15px;
+                left: 5%;
+                right: 5%;
+            }
         }
         
         /* Footer */
@@ -619,50 +883,388 @@
             color: var(--text-color);
         }
         
+        /* Lazy Loading Images */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Accesibilidad - Focus Styles */
+        a:focus, button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+        
         /* Brutalist Element */
         .brutalist-section {
-            background: linear-gradient(270deg, 
-                rgba(255, 77, 0, 0.9),    
-                rgba(0, 102, 204, 0.9),   
-                rgba(0, 212, 255, 0.9),   
-                rgba(147, 51, 234, 0.9)   
-            );
-            background-size: 400% 400%;
-            color: white;
-            padding: 60px 40px;
-            margin: 40px 0;
-            text-align: center;
-            border-radius: 0;
-            position: relative;
-            overflow: hidden;
-            animation: gradientShift 12s ease infinite;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(270deg, 
+            rgba(255, 77, 0, 0.9),    /* Naranja intenso */
+            rgba(0, 102, 204, 0.9),   /* Azul primario */
+            rgba(0, 212, 255, 0.9),   /* Azul secundario */
+            rgba(147, 51, 234, 0.9)   /* Púrpura */
+        );
+        background-size: 400% 400%;
+        color: white;
+        padding: 60px 40px;
+        margin: 40px 0;
+        text-align: center;
+        border-radius: 0;
+        position: relative;
+        overflow: hidden;
+        animation: gradientShift 12s ease infinite;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
+        .brutalist-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+        }
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        0% {
+            background-position: 0% 50%;
+        }
+        25% {
+            background-position: 50% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        75% {
+            background-position: 50% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+        }
+        [data-theme="light"] .brutalist-section {
+        background: linear-gradient(270deg,
+            rgba(230, 57, 70, 0.95),  /* Rojo suave */
+            rgba(26, 115, 232, 0.95), /* Azul claro */
+            rgba(0, 119, 182, 0.95),  /* Azul oscuro */
+            rgba(108, 99, 255, 0.95)  /* Púrpura suave */
+        );
+        background-size: 400% 400%;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+        .brutalist-section .btn-light {
+        background: rgba(255, 255, 255, 0.95);
+        color: #222;
+        border: none;
+        padding: 15px 35px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 50px;
+        transition: all 0.4s;
+        position: relative;
+        z-index: 3;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .brutalist-section .btn-light:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        background: white;
+    }
+
+    /* Media queries para responsive */
+    @media (max-width: 768px) {
+        .brutalist-section {
+            padding: 50px 20px;
+            animation-duration: 8s; /* Animación más rápida en móvil */
         }
         
-        /* Formulario */
-        .form-control, .form-select {
-            background-color: var(--card-bg);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-color);
-            padding: 12px 15px;
-            transition: all 0.3s;
-            border-radius: 8px;
+        .brutalist-section h2 {
+            font-size: 2rem;
         }
-        .form-control:focus, .form-select:focus {
+    }
+
+    @media (max-width: 576px) {
+        .brutalist-section {
+            padding: 40px 15px;
+        }
+        
+        .brutalist-section h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+[data-theme="light"] .brutalist-section::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+    /* Asegurar que el contenido esté por encima del overlay */
+    .brutalist-section .container {
+        position: relative;
+        z-index: 2;
+    }
+            
+        /* Sección de Misiones - Texto legible */
+        #missions {
+            color: var(--mission-text-color);
+        }
+        
+        #missions .section-title {
+            color: var(--text-color);
+        }
+        
+        #missions .text-muted {
+            color: var(--text-color) !important;
+            opacity: 0.8;
+        }
+        
+        /* Badges de estado de misión */
+        .badge {
+            font-weight: 500 !important;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .bg-success {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .bg-warning {
+            background-color: var(--mission-status-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--secondary-color) !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Nombre del cohete en misiones */
+        #missions-container h5 {
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        #missions-container p {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        
+        .text-muted {
+            color: white;
+        }
+        
+        .glass-card.text-muted {
+            color: rgb(76, 129, 179) !important;
+        }
+
+        .section-title {
+            color: white;
+        }
+        
+        /* Acordeones */
+        .accordion-button {
+            background-color: var(--card-bg) !important;
+            color: var(--accordion-text-color) !important;
+            font-weight: 600;
+            border: none;
+            padding: 15px 20px;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            color: var(--secondary-color) !important;
+            background-color: rgba(var(--primary-color), 0.1) !important;
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25);
+        }
+        
+        .accordion-body {
+            background-color: var(--card-bg);
+            color: var(--accordion-text-color);
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .accordion-item {
+            background-color: transparent;
+            border: none;
+        }
+        
+        /* Sección de Contacto */
+        #contact {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            background-color: var(--card-bg);
+        }
+        
+        #contact h2, #contact h4, #contact h5 {
+            color: var(--text-color);
+        }
+        
+        #contact .glass-card {
+            background: var(--form-bg-color);
+            padding: 30px;
+        }
+        
+        /* Formulario de contacto */
+        .form-control, .form-select {
+         background-color: var(--card-bg);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        color: var(--text-color);
+        padding: 12px 15px;
+        transition: all 0.3s;
+        border-radius: 8px;
+        font-size: 1rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+        background-color: var(--card-bg);
+        border-color: var(--primary-color);
+        color: var(--text-color);
+        box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25);
+        outline: none;
+        }
+
+        .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+        }
+        .form-label {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 8px;
         }
         [data-theme="light"] .form-control,
         [data-theme="light"] .form-select {
             border: 2px solid rgba(0, 0, 0, 0.15);
             background-color: #ffffff;
             color: #333333;
+        }
+
+        [data-theme="light"] .form-control:focus,
+        [data-theme="light"] .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(26, 115, 232, 0.25);
+        }
+
+        [data-theme="light"] .form-control::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Ajustes para el textarea específicamente */
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Estilos para el grupo de inputs del newsletter */
+        .input-group .form-control {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .input-group .btn-primary {
+            background-color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            color: white;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 10px 20px;
+            transition: all 0.3s;
+        }
+
+        .input-group .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        /* Imagen del cohete */
+        #technology img {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #technology img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Texto en Glass Card de próxima misión */
+        .glass-card h4, .glass-card h5, .glass-card p {
+            color: var(--text-color);
+        }
+        
+        .glass-card .text-primary {
+            color: var(--secondary-color) !important;
+        }
+        
+        /* Mejoras específicas para tema claro */
+        [data-theme="light"] .navbar-nav .nav-link {
+            color: #333333 !important;
+        }
+        
+        [data-theme="light"] .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        [data-theme="light"] .btn-outline-light {
+            color: #333333;
+            border-color: #333333;
+        }
+        
+        [data-theme="light"] .btn-outline-light:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .theme-toggle {
+            color: #333333;
+            border-color: #333333;
+        }
+        
+
+        [data-theme="light"] .lead {
+            color: white;
+        }
+
+        .col-lg-67 * {
+            color: white !important;
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background-color: #333333;
+            color: white;
+        }
+        
+        [data-theme="light"] .footer {
+            background-color: rgba(240, 242, 245, 0.95);
+        }
+        
+        /* Progress bar */
+        .progress {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-color);
+            transition: width 1s ease-in-out;
         }
     </style>
     
@@ -736,18 +1338,18 @@
         </div>
     </section>
 
-    <!-- ===== CARRUSEL 3D CON TRANSICIONES ULTRA SUAVES ===== -->
+    <!-- ===== CARRUSEL DE COHETES MODERNOS - TRANSICIONES ULTRA SUAVES ===== -->
     <section class="rocket-carousel-section">
         <div class="container">
             <div class="row mb-4">
                 <div class="col-12 text-center">
                     <h2 class="section-title mb-3">FLOTA DE ÚLTIMA GENERACIÓN</h2>
-                    <p class="text-muted">Cohetes reutilizables del siglo XXI - Experimenta la profundidad 3D</p>
+                    <p class="text-muted">Cohetes reutilizables del siglo XXI - 100% modernos, cero transbordadores</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div id="rocketCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false" data-bs-wrap="true">
+                    <div id="rocketCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000" data-bs-pause="false">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#rocketCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="SpaceX Starship"></button>
                             <button type="button" data-bs-target="#rocketCarousel" data-bs-slide-to="1" aria-label="SpaceX Falcon 9"></button>
@@ -818,7 +1420,7 @@
         </div>
     </section>
     
-    <!-- Statistics Section (resumen) -->
+    <!-- Statistics Section -->
     <section class="py-5" id="stats">
         <div class="container">
             <div class="row text-center">
@@ -849,8 +1451,66 @@
             </div>
         </div>
     </section>
+
+    <!-- ===== NUEVA SECCIÓN DE VIDEO ANIMADO CON YOUTUBE ===== -->
+    <section class="video-showcase-section py-5" id="video-showcase">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h2 class="section-title mb-3">EXPLORACIÓN EN MOVIMIENTO</h2>
+                    <p class="text-muted">Un vistazo a la potencia y elegancia de nuestros lanzamientos</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="video-wrapper glass-card p-3">
+                        <!-- Video de YouTube en bucle, sin controles, reproducción automática -->
+                        <div class="ratio ratio-16x9">
+                            <iframe 
+                                src="https://www.youtube.com/embed/0qo78R_yYFA?autoplay=1&mute=1&loop=1&playlist=0qo78R_yYFA&controls=0&showinfo=0&rel=0&modestbranding=1" 
+                                title="Lanzamiento de cohete SpaceX"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-caption mt-3 text-center">
+                            <span class="badge">LANZAMIENTO DEMO • FALCON HEAVY</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="video-content ps-lg-4">
+                        <h3 class="mb-3">TECNOLOGÍA EN ACCIÓN</h3>
+                        <p class="lead mb-4">Cada lanzamiento es una obra de ingeniería. Nuestros cohetes reutilizables despegan y aterrizan con una precisión milimétrica, demostrando que el futuro del espacio ya está aquí.</p>
+                        
+                        <!-- Estadísticas rápidas en columnas -->
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="neumorphic-card p-3 text-center">
+                                    <h4 class="stat-number mb-1" style="font-size: 2.2rem;">154</h4>
+                                    <p class="mb-0 small">Aterrizajes exitosos</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="neumorphic-card p-3 text-center">
+                                    <h4 class="stat-number mb-1" style="font-size: 2.2rem;">12</h4>
+                                    <p class="mb-0 small">Misiones a Marte</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="#contact" class="btn btn-primary-custom me-2"><i class="fas fa-play-circle me-2"></i>Ver más lanzamientos</a>
+                            <a href="#technology" class="btn btn-outline-light"><i class="fas fa-info-circle me-2"></i>Más información</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===== FIN DE NUEVA SECCIÓN DE VIDEO ANIMADO ===== -->
     
-    <!-- Services Section (simplificada) -->
+    <!-- Services Section -->
     <section class="py-5 bg-dark" id="services">
         <div class="container">
             <div class="row mb-5">
@@ -859,6 +1519,7 @@
                     <p class="text-muted" style="color: #44866b !important">Ofrecemos soluciones integrales para la nueva era espacial</p>
                 </div>
             </div>
+            
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="glass-card service-card h-100">
@@ -867,8 +1528,14 @@
                         </div>
                         <h4 class="mb-3">Despliegue de Satélites</h4>
                         <p>Lanzamiento y despliegue de constelaciones de satélites para comunicaciones, observación terrestre y ciencia.</p>
+                        <ul class="mt-3">
+                            <li>Órbitas LEO, MEO y GEO</li>
+                            <li>Costes reducidos en 40%</li>
+                            <li>Plazos de lanzamiento flexibles</li>
+                        </ul>
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <div class="glass-card service-card h-100">
                         <div class="icon-wrapper mb-4 text-primary">
@@ -876,8 +1543,14 @@
                         </div>
                         <h4 class="mb-3">Transporte Orbital</h4>
                         <p>Servicios de carga y transporte de suministros a la Estación Espacial Internacional y futuras estaciones comerciales.</p>
+                        <ul class="mt-3">
+                            <li>Capacidad de carga: 6,000 kg</li>
+                            <li>Vehículos reutilizables</li>
+                            <li>Docking automático</li>
+                        </ul>
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <div class="glass-card service-card h-100">
                         <div class="icon-wrapper mb-4 text-primary">
@@ -885,6 +1558,78 @@
                         </div>
                         <h4 class="mb-3">Misiones Lunares</h4>
                         <p>Servicios de transporte a la Luna para carga científica, rovers y futuras bases lunares comerciales.</p>
+                        <ul class="mt-3">
+                            <li>Alunizaje de precisión</li>
+                            <li>Capacidad para 500 kg</li>
+                            <li>Retorno de muestras lunares</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technology Section -->
+    <section class="py-5" id="technology">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Tecnología de Vanguardia</h2>
+                    <p class="mb-4">Nuestros cohetes reutilizables reducen los costes de lanzamiento en un 70% comparado con los métodos tradicionales.</p>
+                    
+                    <div class="accordion" id="techAccordion">
+                        <div class="accordion-item glass-card border-0 mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Cohetes Reutilizables
+                                </button>
+                            </h3>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Nuestra tecnología de recuperación y reutilización de primera etapa permite hasta 10 vuelos por cohete.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item glass-card border-0 mb-3">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Impresión 3D de Motores
+                                </button>
+                            </h3>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Fabricación aditiva de componentes críticos reduce tiempos de producción en un 60%.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item glass-card border-0">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Guiado Autónomo
+                                </button>
+                            </h3>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#techAccordion">
+                                <div class="accordion-body">
+                                    Sistemas de navegación autónoma permiten alunizajes de precisión con margen de error menor a 10 metros.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1636819488537-6c6c9e4c9e7c?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Starship en plataforma de lanzamiento" 
+                             class="img-fluid rounded lazy loaded"
+                             loading="lazy"
+                             width="800"
+                             height="600">
+                        <div class="glass-card position-absolute bottom-0 start-0 m-3 p-3">
+                            <small class="text-muted" style="color:#447bc4 !important">Starship - El futuro de la exploración</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -900,18 +1645,137 @@
         </div>
     </section>
     
-    <!-- Footer simplificado y chatbot -->
+    <!-- Missions Section -->
+    <section class="py-5" id="missions">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title mb-3">Próximas Misiones</h2>
+                    <p class="text-muted">Nuestro calendario de lanzamientos para 2026</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Las misiones se cargarán dinámicamente con JavaScript -->
+                <div id="missions-container" class="row g-4">
+                    <!-- Contenido dinámico desde API simulada -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="py-5 bg-dark" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-67">
+                      <h2 class="mb-4">Contacto</h2>
+                      <p class="mb-4">¿Interesado en nuestros servicios? Contáctanos para más información.</p>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-map-marker-alt me-2 text-primary"></i> Dirección</h5>
+                          <p>Spaceport Nexus, Carretera Espacial 1, Cabo Cañaveral, Florida 32920, USA</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-phone me-2 text-primary"></i> Teléfono</h5>
+                          <p>+1 (321) 867-5309</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                          <h5><i class="fas fa-envelope me-2 text-primary"></i> Email</h5>
+                          <p>contact@nexusaerospace.com</p>
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h4 class="mb-4">Formulario de Contacto</h4>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="service" class="form-label">Servicio de interés</label>
+                                <select class="form-select" id="service">
+                                    <option>Despliegue de satélites</option>
+                                    <option>Transporte orbital</option>
+                                    <option>Misiones lunares</option>
+                                    <option>Asociación comercial</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="message" rows="4" required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary-custom">Enviar Mensaje</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Nexus Aerospace</h5>
+                    <p>Liderando la nueva era de la exploración espacial privada con tecnología innovadora y soluciones sostenibles.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#services">Servicios</a></li>
+                        <li><a href="#technology">Tecnología</a></li>
+                        <li><a href="#missions">Misiones</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Suscríbete</h5>
+                    <p>Recibe las últimas noticias sobre nuestros lanzamientos y avances tecnológicos.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Tu email" id="newsletter-email">
+                        <button class="btn btn-primary" type="button" id="subscribe-btn">Suscribirse</button>
+                    </div>
+                    <p class="small text-muted">
+                      <a style="color: #44688b !important">Al suscribirte aceptas nuestra </a><a href="#">política de privacidad</a>.
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
             <div class="row">
                 <div class="col-md-6">
                     <p class="small">&copy; 2026 Nexus Aerospace. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="small">
-                        <a href="#" class="me-3">Términos</a>
-                        <a href="#" class="me-3">Privacidad</a>
-                        <a href="#">Accesibilidad</a>
+                        <a href="#" class="me-3">Términos de servicio</a>
+                        <a href="#" class="me-3">Política de privacidad</a>
+                        <a href="#">Accesibilidad (WCAG 2.1)</a>
                     </p>
                 </div>
             </div>
@@ -930,6 +1794,7 @@
         const toggleButton = document.getElementById('toggle-theme');
         const themeIcon = toggleButton.querySelector('i');
         
+        // Cargar preferencia de tema desde localStorage
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.body.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
@@ -937,46 +1802,197 @@
         toggleButton.addEventListener('click', () => {
             const currentTheme = document.body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
             document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
         });
         
         function updateThemeIcon(theme) {
-            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-moon';
+                toggleButton.setAttribute('aria-label', 'Cambiar a modo claro');
+            } else {
+                themeIcon.className = 'fas fa-sun';
+                toggleButton.setAttribute('aria-label', 'Cambiar a modo oscuro');
+            }
         }
         
-        // Inicializar carrusel con opciones suaves y personalizadas
+        // Simulación de API para cargar misiones (contenido dinámico)
         document.addEventListener('DOMContentLoaded', function() {
-            const carouselElement = document.getElementById('rocketCarousel');
-            const carousel = new bootstrap.Carousel(carouselElement, {
-                interval: 5000,
+            // Datos simulados de API
+            const missions = [
+                {
+                    name: "Artemis IX",
+                    date: "14 Ene 2026",
+                    description: "Suministros a la Estación Espacial Lunar Gateway",
+                    status: "Programada",
+                    type: "Orbital"
+                },
+                {
+                    name: "Starlink Batch 45",
+                    date: "28 Feb 2026",
+                    description: "Despliegue de 60 satélites para constelación de internet",
+                    status: "En preparación",
+                    type: "Comercial"
+                },
+                {
+                    name: "Lunar Resource Prospector",
+                    date: "15 Mar 2026",
+                    description: "Misión de exploración de recursos lunares para NASA",
+                    status: "Programada",
+                    type: "Científica"
+                },
+                {
+                    name: "Nexus-7 Test Flight",
+                    date: "10 Abr 2026",
+                    description: "Vuelo de prueba del nuevo cohete reutilizable",
+                    status: "En desarrollo",
+                    type: "Experimental"
+                }
+            ];
+            
+            // Renderizar misiones
+            const missionsContainer = document.getElementById('missions-container');
+            missions.forEach(mission => {
+                const missionCard = `
+                    <div class="col-md-6 col-lg-3">
+                        <div class="neumorphic-card h-100">
+                            <span class="badge bg-${mission.status === 'Programada' ? 'success' : 'warning'} mb-2">${mission.status}</span>
+                            <h5 class="mb-2">${mission.name}</h5>
+                            <p class="text-muted small mb-2"><i class="far fa-calendar me-1"></i>${mission.date}</p>
+                            <p class="mb-3">${mission.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">${mission.type}</span>
+                                <button class="btn btn-sm btn-outline-primary">Más info</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                missionsContainer.innerHTML += missionCard;
+            });
+            
+            // Lazy Loading para imágenes
+            const lazyImages = document.querySelectorAll('img.lazy');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
+            
+            // Manejo del formulario de contacto
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulación de envío
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // Guardar en localStorage (simulación)
+                localStorage.setItem('contactFormData', JSON.stringify(formData));
+                
+                // Mostrar confirmación
+                alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+                contactForm.reset();
+            });
+            
+            // Suscripción al newsletter
+            const subscribeBtn = document.getElementById('subscribe-btn');
+            subscribeBtn.addEventListener('click', function() {
+                const email = document.getElementById('newsletter-email').value;
+                
+                if (email && validateEmail(email)) {
+                    // Guardar en localStorage
+                    let subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+                    subscriptions.push({email: email, date: new Date().toISOString()});
+                    localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+                    
+                    alert('¡Gracias por suscribirte!');
+                    document.getElementById('newsletter-email').value = '';
+                } else {
+                    alert('Por favor, introduce un email válido.');
+                }
+            });
+            
+            // Chatbot simulation
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            chatbotToggle.addEventListener('click', function() {
+                alert('¡Hola! Soy Aria, la asistente virtual de Nexus Aerospace. ¿En qué puedo ayudarte?');
+            });
+            
+            // Validación de email
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Smooth scrolling para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === "#") return;
+                    
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Microinteracción para las cards de servicios al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Aplicar a las cards de servicios
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+
+            // Agregar animación de entrada a los botones del hero
+            const heroButtons = document.querySelectorAll('.hero-section .btn');
+            heroButtons.forEach((button, index) => {
+                button.style.animation = `slideInRight 0.8s ease-out ${index * 0.2}s both`;
+            });
+
+            // Iniciar el carrusel con intervalo más largo y transiciones suaves
+            const carousel = new bootstrap.Carousel(document.getElementById('rocketCarousel'), {
+                interval: 6000,
                 wrap: true,
                 ride: 'carousel',
                 pause: 'hover',
                 touch: true
-            });
-            
-            // Mejorar la transición con animación 3D manual (opcional)
-            carouselElement.addEventListener('slide.bs.carousel', function (e) {
-                const activeItem = e.relatedTarget;
-                // Podemos agregar clases personalizadas si se desea
-            });
-            
-            // Chatbot simulation
-            document.getElementById('chatbot-toggle').addEventListener('click', function() {
-                alert('¡Hola! Soy Aria, la asistente virtual de Nexus Aerospace. ¿En qué puedo ayudarte?');
-            });
-            
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href === "#") return;
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                });
             });
         });
     </script>
