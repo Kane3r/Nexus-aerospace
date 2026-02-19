@@ -550,7 +550,7 @@
             color: transparent;
         }
         
-        /* Statistics Section */
+        /* Statistics Section - ANIMACIÓN MEJORADA */
         .stat-number {
             font-size: 3rem;
             font-weight: 700;
@@ -559,6 +559,47 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+        }
+        
+        /* ANIMACIÓN PARA LAS TARJETAS DE ESTADÍSTICAS */
+        #stats .neumorphic-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        #stats .neumorphic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        
+        #stats .neumorphic-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--secondary-color);
+        }
+        
+        #stats .neumorphic-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        #stats .neumorphic-card:hover .stat-number {
+            animation: pulse 1s infinite;
+        }
+        
+        #stats .neumorphic-card:hover p {
+            color: var(--secondary-color);
+            font-weight: 600;
         }
         
         /* ===== CARRUSEL MEJORADO - TRANSICIONES ULTRA SUAVES ===== */
@@ -1420,7 +1461,7 @@
         </div>
     </section>
     
-    <!-- Statistics Section -->
+    <!-- Statistics Section - CON ANIMACIÓN HOVER -->
     <section class="py-5" id="stats">
         <div class="container">
             <div class="row text-center">
