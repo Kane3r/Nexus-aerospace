@@ -1389,15 +1389,17 @@
             border-color: var(--secondary-color);
         }
         
-        /* Imagen del cohete */
-        #technology img {
+        /* Estilos para la imagen del cohete */
+        #starship-theme-image {
+            max-width: 100%;
+            height: auto;
             margin-top: 20px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        #technology img:hover {
+        #starship-theme-image:hover {
             transform: scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
         }
@@ -1765,7 +1767,7 @@
         </div>
     </section>
     
-    <!-- Technology Section -->
+    <!-- Technology Section - CON IMAGEN QUE CAMBIA SEGÚN EL TEMA -->
     <section class="py-5" id="technology">
         <div class="container">
             <div class="row align-items-center">
@@ -1817,12 +1819,14 @@
                 
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1636819488537-6c6c9e4c9e7c?q=80&w=2070&auto=format&fit=crop" 
+                        <!-- IMAGEN QUE CAMBIA CON EL TEMA (DARK/LIGHT) -->
+                        <img id="starship-theme-image" 
+                             src="./images/starship-dark.jpg"
                              alt="Starship en plataforma de lanzamiento" 
                              class="img-fluid rounded lazy loaded"
                              loading="lazy"
-                             width="800"
-                             height="600">
+                             width="500"
+                             height="300">
                         <div class="glass-card position-absolute bottom-0 start-0 m-3 p-3">
                             <small class="text-muted" style="color:#447bc4 !important">Starship - El futuro de la exploración</small>
                         </div>
@@ -2004,6 +2008,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Función para actualizar la imagen según el tema
+        function updateThemeImage(theme) {
+            const themeImage = document.getElementById('starship-theme-image');
+            if (themeImage) {
+                themeImage.src = theme === 'light' ? './images/starship-light.jpg' : './images/starship-dark.jpg';
+            }
+        }
+
         // Dark/Light Mode Toggle
         const toggleButton = document.getElementById('toggle-theme');
         const themeIcon = toggleButton.querySelector('i');
@@ -2012,6 +2024,7 @@
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.body.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
+        updateThemeImage(savedTheme); // Actualizar imagen al cargar
         
         toggleButton.addEventListener('click', () => {
             const currentTheme = document.body.getAttribute('data-theme');
@@ -2020,6 +2033,7 @@
             document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
+            updateThemeImage(newTheme); // Actualizar imagen al cambiar tema
         });
         
         function updateThemeIcon(theme) {
