@@ -1577,6 +1577,207 @@
             background-color: var(--primary-color);
             transition: width 1s ease-in-out;
         }
+       /* ===== SECCIÓN INTERACTIVA DEL COHETE EN CAPAS ===== */
+.rocket-mouse-section {
+    padding: 40px 0 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rocket-mouse-card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px;
+    border-radius: 28px;
+}
+
+.rocket-mouse-copy {
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 4;
+}
+
+.rocket-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.rocket-mouse-scene {
+    --mx: 0;
+    --my: 0;
+    position: relative;
+    min-height: 540px;
+    border-radius: 24px;
+    overflow: hidden;
+    perspective: 1400px;
+    isolation: isolate;
+    background: #020816;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.rocket-scene-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.rocket-mouse-glow {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 180, 255, 0.22), transparent 68%);
+    transform:
+        translate(-50%, -50%)
+        translate3d(
+            calc(var(--mx) * 12px),
+            calc(var(--my) * 12px),
+            0
+        );
+    filter: blur(22px);
+    z-index: 2;
+    pointer-events: none;
+    transition: transform 0.16s ease-out;
+}
+
+.rocket-ship-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.rocket-ship-wrap::before {
+    content: '';
+    position: absolute;
+    width: 440px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.35), transparent 70%);
+    transform:
+        translate3d(
+            calc(var(--mx) * 10px),
+            calc(var(--my) * 10px + 110px),
+            0
+        )
+        scale(1.1);
+    filter: blur(18px);
+    z-index: 0;
+    transition: transform 0.16s ease-out;
+}
+
+.rocket-mouse-image {
+    position: relative;
+    z-index: 1;
+    width: min(74%, 760px);
+    max-height: 430px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 28px 45px rgba(0, 0, 0, 0.45));
+    transform:
+        translate3d(
+            calc(var(--mx) * 28px),
+            calc(var(--my) * 18px),
+            0
+        )
+        rotateY(calc(var(--mx) * 22deg))
+        rotateX(calc(var(--my) * -14deg))
+        rotateZ(calc(var(--mx) * 3deg))
+        scale(1.02);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    will-change: transform;
+    transition: transform 0.16s ease-out;
+    animation: rocketIdleFloat 6s ease-in-out infinite;
+}
+
+@keyframes rocketIdleFloat {
+    0%, 100% {
+        margin-top: 0;
+    }
+    50% {
+        margin-top: -10px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .rocket-mouse-scene {
+        min-height: 400px;
+    }
+
+    .rocket-mouse-image {
+        width: min(86%, 620px);
+        max-height: 320px;
+        transform: none !important;
+    }
+
+    .rocket-mouse-glow,
+    .rocket-ship-wrap::before {
+        transform: translate(-50%, -50%) !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .rocket-mouse-section {
+        padding: 24px 0 0;
+    }
+
+    .rocket-mouse-card {
+        padding: 20px;
+    }
+
+    .rocket-mouse-scene {
+        min-height: 280px;
+    }
+
+    .rocket-mouse-image {
+        width: 88%;
+        max-height: 220px;
+    }
+}
+/* ===== TEXTO DE LA SECCIÓN DEL COHETE ADAPTABLE AL TEMA ===== */
+.rocket-mouse-card {
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+.rocket-mouse-copy h2,
+.rocket-mouse-copy .section-title {
+    color: var(--text-color) !important;
+}
+
+.rocket-mouse-copy p,
+.rocket-mouse-copy .text-muted {
+    color: var(--text-color) !important;
+    opacity: 0.75;
+}
+
+[data-theme="light"] .rocket-mouse-copy p,
+[data-theme="light"] .rocket-mouse-copy .text-muted {
+    opacity: 0.65;
+}
     </style>
     
 </head>
@@ -2068,6 +2269,39 @@
             </div>
         </div>
     </section>
+    <!-- ===== SECCIÓN INTERACTIVA DEL COHETE ===== -->
+<section class="rocket-mouse-section">
+    <div class="container">
+        <div class="rocket-mouse-card glass-card">
+            <div class="rocket-mouse-copy text-center">
+                <span class="rocket-kicker">Vista interactiva</span>
+                <h2 class="section-title mb-3">Explora Nuestro Cohete</h2>
+                <p class="text-muted mb-0">
+                    Mueve el mouse sobre la escena para cambiar la perspectiva del cohete.
+                </p>
+            </div>
+
+            <div class="rocket-mouse-scene" id="rocket-mouse-scene" aria-label="Escena interactiva del cohete">
+                <img
+                    src="./images/tierra.png"
+                    alt=""
+                    class="rocket-scene-bg"
+                >
+
+                <div class="rocket-mouse-glow"></div>
+
+                <div class="rocket-ship-wrap">
+                    <img
+                        src="./images/cohete.png"
+                        alt="Cohete de Nexus Aerospace"
+                        class="rocket-mouse-image"
+                        id="rocket-mouse-image"
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     
     <!-- Footer -->
     <footer class="footer">
@@ -2242,7 +2476,66 @@
                 `;
                 missionsContainer.innerHTML += missionCard;
             });
-            
+// ===== EFECTO DE PERSPECTIVA DEL COHETE CON MOUSE =====
+const rocketMouseScene = document.getElementById('rocket-mouse-scene');
+
+if (
+    rocketMouseScene &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+) {
+    let currentX = 0;
+    let currentY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let rafId = null;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const animateRocketScene = () => {
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+
+        rocketMouseScene.style.setProperty('--mx', currentX.toFixed(4));
+        rocketMouseScene.style.setProperty('--my', currentY.toFixed(4));
+
+        const stillMoving =
+            Math.abs(targetX - currentX) > 0.001 ||
+            Math.abs(targetY - currentY) > 0.001;
+
+        if (stillMoving) {
+            rafId = requestAnimationFrame(animateRocketScene);
+        } else {
+            rafId = null;
+        }
+    };
+
+    const handlePointerMove = (event) => {
+        const x = (event.clientX / window.innerWidth) * 2 - 1;
+        const y = (event.clientY / window.innerHeight) * 2 - 1;
+
+        targetX = clamp(x, -1, 1);
+        targetY = clamp(y, -1, 1);
+
+        if (!rafId) {
+            rafId = requestAnimationFrame(animateRocketScene);
+        }
+    };
+
+    const resetRocketScene = () => {
+        targetX = 0;
+        targetY = 0;
+
+        if (!rafId) {
+            rafId = requestAnimationFrame(animateRocketScene);
+        }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('mouseleave', resetRocketScene);
+    window.addEventListener('blur', resetRocketScene);
+}
+
             // Lazy Loading para imágenes
             const lazyImages = document.querySelectorAll('img.lazy');
             
