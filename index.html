@@ -1022,6 +1022,22 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
         }
+.services-section {
+    background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(255,255,255,0.08));
+    position: relative;
+    overflow: hidden;
+}
+[data-theme="dark"] #technology {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.08) 0%,
+        rgba(40, 45, 60, 0.18) 18%,
+        rgba(20, 25, 40, 0.55) 42%,
+        var(--bg-color) 100%
+    );
+}
         
         /* ===== NUEVOS ESTILOS PARA LA SECCIÓN DE VIDEO ===== */
         .video-showcase-section {
@@ -2024,7 +2040,7 @@
     <!-- ===== FIN DE NUEVA SECCIÓN DE VIDEO ANIMADO ===== -->
     
     <!-- Services Section - MODIFICADA CON TARJETAS 3D -->
-    <section class="py-5 bg-dark" id="services">
+    <section class="services-section py-5" id="services">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-lg-8 mx-auto text-center">
