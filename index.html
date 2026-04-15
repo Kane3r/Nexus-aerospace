@@ -2454,8 +2454,97 @@
             }
         }
         
+        // Configuración de Supabase para el rocket carousel
+        const SUPABASE_URL = "https://pocebtvmdbpibkdltamj.supabase.co" // URL de Supabase
+        const SUPABASE_ANON_KEY = "sb_publishable_KgQed5YrQ9_e0u_JAFgKMA_srb5cAzX" //  Publishable key
+        const SUPABASE_AUTH_HEADER = `Bearer ${SUPABASE_ANON_KEY}` // Bearer token para Authorization
+        
+        // Función para cargar el rocket carousel desde Supabase
+        async function loadRocketCarousel() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/rockets?select=*`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': SUPABASE_AUTH_HEADER,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar datos: ${response.status}`);
+                }
+
+                const rockets = await response.json();
+
+                if (rockets.length === 0) {
+                    console.warn('No se encontraron cohetes en la base de datos');
+                    return;
+                }
+
+                // Generar indicadores
+                const indicatorsContainer = document.querySelector('#rocketCarousel .carousel-indicators');
+                indicatorsContainer.innerHTML = '';
+
+                // Generar items del carousel
+                const carouselInner = document.querySelector('#rocketCarousel .carousel-inner');
+                carouselInner.innerHTML = '';
+
+                rockets.forEach((rocket, index) => {
+                    // Indicador
+                    const indicator = document.createElement('button');
+                    indicator.type = 'button';
+                    indicator.setAttribute('data-bs-target', '#rocketCarousel');
+                    indicator.setAttribute('data-bs-slide-to', index);
+                    indicator.setAttribute('aria-label', rocket.nombre_cohete);
+                    if (index === 0) {
+                        indicator.classList.add('active');
+                        indicator.setAttribute('aria-current', 'true');
+                    }
+                    indicatorsContainer.appendChild(indicator);
+
+                    // Item del carousel
+                    const item = document.createElement('div');
+                    item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+
+                    item.innerHTML = `
+                        <img src="${rocket.imagen_url}" 
+                             class="d-block w-100" 
+                             alt="${rocket.nombre_cohete}"
+                             loading="lazy">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3 class="text-white">${rocket.nombre_cohete.toUpperCase()}</h3>
+                            <p class="text-white">${rocket.descripcion}</p>
+                            <span class="badge">MISIÓN DISPONIBLE</span>
+                        </div>
+                    `;
+
+                    carouselInner.appendChild(item);
+                });
+
+                console.log('Rocket carousel cargado exitosamente desde Supabase');
+            } catch (error) {
+                console.error('Error al cargar el rocket carousel:', error);
+                // Fallback: mostrar mensaje de error o datos por defecto
+                const carouselInner = document.querySelector('#rocketCarousel .carousel-inner');
+                carouselInner.innerHTML = `
+                    <div class="carousel-item active">
+                        <img src="images/artemis2.jpg" class="d-block w-100" alt="Error al cargar" loading="lazy">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3 class="text-white">ERROR AL CARGAR</h3>
+                            <p class="text-white">No se pudieron cargar los datos de los cohetes. Inténtalo más tarde.</p>
+                            <span class="badge">ERROR DE CONEXIÓN</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
         // Simulación de API para cargar misiones (contenido dinámico)
         document.addEventListener('DOMContentLoaded', function() {
+            // Cargar el rocket carousel desde Supabase
+            loadRocketCarousel();
+            
             // Datos simulados de API
             const missions = [
                 {
@@ -2715,10 +2804,6 @@ const chatbotSend = document.getElementById('chatbot-send');
 const chatbotInput = document.getElementById('chatbot-input');
 const chatbotMessages = document.getElementById('chatbot-messages');
 
-
-const GROQ_API_KEY = "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" // ⚠️ REEMPLAZA CON TU API KEY REAL
-const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-const modeloSeleccionado = "llama-3.3-70b-versatile" // Modelo recomendado
 
 // Historial de conversación
 let conversationHistory = []
