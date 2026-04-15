@@ -2300,33 +2300,47 @@
                 <div class="col-lg-6">
                     <div class="glass-card">
                         <h4 class="mb-4">Formulario de Contacto</h4>
-                        <form id="contact-form">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="service" class="form-label">Servicio de interés</label>
-                                <select class="form-select" id="service">
-                                    <option>Despliegue de satélites</option>
-                                    <option>Transporte orbital</option>
-                                    <option>Misiones lunares</option>
-                                    <option>Asociación comercial</option>
-                                    <option>Otro</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Mensaje</label>
-                                <textarea class="form-control" id="message" rows="4" required></textarea>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary-custom">Enviar Mensaje</button>
-                            </div>
-                        </form>
+                        <form id="contact-form" action="https://formspree.io/f/meevevlz" method="POST">
+    <!-- Campo oculto para el asunto del email -->
+    <input type="hidden" name="_subject" value="Nuevo mensaje desde Nexus Aerospace">
+    
+    <!-- Campo oculto para redirección (opcional - comenta o elimina si no quieres) -->
+    <!-- <input type="hidden" name="_next" value="https://tusitio.com/gracias.html"> -->
+    
+    <!-- Deshabilitar captcha de Formspree (opcional - elimina esta línea si quieres mantener el captcha) -->
+    <input type="hidden" name="_captcha" value="false">
+    
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="_replyto" required>
+        <!-- ↑ name="_replyto" permite responder directamente al usuario -->
+    </div>
+    
+    <div class="mb-3">
+        <label for="service" class="form-label">Servicio de interés</label>
+        <select class="form-select" id="service" name="servicio">
+            <option value="Despliegue de satélites">Despliegue de satélites</option>
+            <option value="Transporte orbital">Transporte orbital</option>
+            <option value="Misiones lunares">Misiones lunares</option>
+            <option value="Asociación comercial">Asociación comercial</option>
+            <option value="Otro">Otro</option>
+        </select>
+    </div>
+    
+    <div class="mb-3">
+        <label for="message" class="form-label">Mensaje</label>
+        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+    </div>
+    
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary-custom">Enviar Mensaje</button>
+    </div>
+</form>
                     </div>
                 </div>
             </div>
@@ -2812,13 +2826,30 @@ let conversationHistory = []
 const ASTRONEER_SYSTEM_PROMPT = `Eres Houston, un asistente experto y entusiasta en viajes espaciales turísticos.
 
 INFORMACIÓN IMPORTANTE SOBRE TUS SERVICIOS:
+misiones:
+ name: "Artemis IX",
+                    date: "14 Ene 2026",
+                    description: "Suministros a la Estación Espacial Lunar Gateway",
+                    status: "Programada",
+                    type: "Orbital",
+            
+                    name: "Starlink Batch 45",
+                    date: "28 Feb 2026",
+                    description: "Despliegue de 60 satélites para constelación de internet",
+                    status: "En preparación",
+                    type: "Comercial",
+            
+                    name: "Lunar Resource",
+                    date: "15 Mar 2026",
+                    description: "Misión de exploración de recursos lunares para NASA",
+                    status: "Programada",
+                    type: "Científica",
 
-🌍 DESTINOS DISPONIBLES:
-- Órbita Terrestre Baja (400km) - Duración: 2 horas | Precio: $250,000
-- Vuelo Lunar (órbita alrededor de la Luna) - Duración: 3 días | Precio: $1,500,000
-- Aterrizaje Lunar (superficie lunar) - Duración: 5 días | Precio: $5,000,000
-- Estación Espacial Nexus (hotel orbital) - Duración: 7 días | Precio: $3,500,000
-- Vuelo alrededor de Marte (próximamente 2027) - Precio: $12,000,000
+                    name: "Nexus-7 Test Flight",
+                    date: "10 Abr 2026",
+                    description: "Vuelo de prueba del nuevo cohete reutilizable",
+                    status: "En desarrollo",
+                    type: "Experimental".
 
 🚀 VEHÍCULOS ESPACIALES:
 - Nexus Voyager (capacidad: 6 pasajeros) - Para órbita terrestre
@@ -2838,11 +2869,7 @@ INFORMACIÓN IMPORTANTE SOBRE TUS SERVICIOS:
 - Seguro de cancelación
 - Fotos y videos profesionales del viaje
 
-💰 FORMAS DE PAGO:
-- Transferencia bancaria (10% descuento)
-- Criptomonedas (Bitcoin, Ethereum)
-- Planes de financiamiento (hasta 24 meses)
-
+- Si quieren pagar debes dirigirse al formulario de contacto, puedes dar estimaciones sobre cuanto cuesta pero indica que no es el precio final, debe ir al formulario
 📞 CONTACTO:
 - Email: viajes@astroneer.space
 - Teléfono: +1 (888) 567-9023
@@ -2851,10 +2878,11 @@ INFORMACIÓN IMPORTANTE SOBRE TUS SERVICIOS:
 TU PERSONALIDAD:
 - Entusiasta y apasionado por el espacio
 - Profesional pero cercano y amigable
-- Usa emojis relacionados con el espacio (🚀🌍🌙⭐🛸👨‍🚀)
+- no utilizar emojis
 - Responde SIEMPRE en español
 - Si te preguntan algo fuera de viajes espaciales, amablemente redirige al tema
 - Destaca la seguridad de tus viajes (100% de éxito en 45 misiones)
+-si utilizan preguntas con informacion ligeramente distinta a las proporcionadas misiones, recomienda fuertemente la mision que mas se le parezca a las que piden 
 
 ¡Tus respuestas deben inspirar aventura y emoción por el turismo espacial!`
 
@@ -2998,7 +3026,6 @@ function mostrarMenuRapido() {
 🌟 **Opciones rápidas de Houston** 🌟
 
 1️⃣ Ver destinos disponibles
-2️⃣ Consultar precios
 3️⃣ Requisitos para viajar
 4️⃣ Próximas fechas de lanzamiento
 5️⃣ Contactar con asesor
@@ -3034,6 +3061,74 @@ chatbotToggle.addEventListener('click', function() {
     }
 });
         });
+
+
+        // Envío asíncrono con Formspree para el formulario de contacto
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(contactForm);
+        
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                // Mostrar mensaje de éxito
+                const successDiv = document.createElement('div');
+                successDiv.className = 'alert alert-success mt-3';
+                successDiv.innerHTML = '<i class="fas fa-check-circle me-2"></i> ✅ ¡Mensaje enviado con éxito! Te contactaremos pronto.';
+                contactForm.appendChild(successDiv);
+                contactForm.reset();
+                
+                // Eliminar el mensaje después de 5 segundos
+                setTimeout(() => {
+                    successDiv.remove();
+                }, 5000);
+            } else {
+                const data = await response.json();
+                let errorMsg = '❌ Hubo un error al enviar el mensaje. ';
+                if (data.errors) {
+                    errorMsg += data.errors.map(error => error.message).join(', ');
+                } else {
+                    errorMsg += 'Por favor, intenta de nuevo.';
+                }
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger mt-3';
+                errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> ' + errorMsg;
+                contactForm.appendChild(errorDiv);
+                
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 5000);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger mt-3';
+            errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i> ❌ Error de conexión. Por favor, verifica tu conexión a internet.';
+            contactForm.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
     </script>
 
 <!-- Canvas de estrellas para modo nocturno - Con puntas realistas -->
