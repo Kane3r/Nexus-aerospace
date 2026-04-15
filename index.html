@@ -3129,6 +3129,56 @@ if (contactForm) {
         }
     });
 }
+// Newsletter simple con Formspree
+const subscribeBtn = document.getElementById('subscribe-btn');
+const newsletterEmail = document.getElementById('newsletter-email');
+
+if (subscribeBtn && newsletterEmail) {
+    subscribeBtn.addEventListener('click', async function(e) {
+        const email = newsletterEmail.value.trim();
+        
+        if (!email) {
+            alert('Por favor, ingresa un email válido.');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, ingresa un email válido (ejemplo@dominio.com).');
+            return;
+        }
+        
+        const originalText = subscribeBtn.innerHTML;
+        subscribeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        subscribeBtn.disabled = true;
+        
+        const formData = new FormData();
+        formData.append('_subject', 'Nueva suscripción al newsletter');
+        formData.append('tipo', 'suscripcion_newsletter');
+        formData.append('_replyto', email);
+        formData.append('mensaje', `El usuario con email ${email} se ha suscrito al newsletter de Nexus Aerospace.`);
+        
+        try {
+            const response = await fetch('https://formspree.io/f/meevevlz', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                
+                newsletterEmail.value = '';
+            } else {
+                alert('❌ Error al suscribirse. Por favor, intenta de nuevo.');
+            }
+        } catch (error) {
+            alert('❌ Error de conexión. Por favor, verifica tu conexión a internet.');
+        } finally {
+            subscribeBtn.innerHTML = originalText;
+            subscribeBtn.disabled = false;
+        }
+    });
+}
     </script>
 
 <!-- Canvas de estrellas para modo nocturno - Con puntas realistas -->
@@ -3353,5 +3403,12 @@ if (contactForm) {
         drawStars();
     }
 </script>
+<!-- Formulario oculto para newsletter con Formspree -->
+<form id="newsletter-form" action="https://formspree.io/f/meevevlz" method="POST" style="display: none;">
+    <input type="hidden" name="_subject" value="Nueva suscripción al newsletter">
+    <input type="hidden" name="tipo" value="suscripcion_newsletter">
+    <input type="hidden" name="_replyto" id="newsletter-replyto">
+    <input type="hidden" name="mensaje" id="newsletter-mensaje">
+</form>
 </body>
 </html>
