@@ -2401,7 +2401,7 @@
         <div class="chatbot-messages" id="chatbot-messages">
             <div class="message bot">
                 <div class="message-content">
-                    ¡Hola! Soy Houston, tu asistente virtual de Nexus Aerospace. ¿En qué puedo ayudarte?
+                    
                 </div>
             </div>
         </div>
@@ -2705,87 +2705,247 @@ if (
                 touch: true
             });
 
-            // ===== CHATBOT HOUSTON FUNCIONAL =====
-            const chatbotToggle = document.getElementById('chatbot-toggle');
-            const chatbotContainer = document.getElementById('chatbot-container');
-            const chatbotClose = document.getElementById('chatbot-close');
-            const chatbotSend = document.getElementById('chatbot-send');
-            const chatbotInput = document.getElementById('chatbot-input');
-            const chatbotMessages = document.getElementById('chatbot-messages');
+         //chat
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotContainer = document.getElementById('chatbot-container');
+const chatbotClose = document.getElementById('chatbot-close');
+const chatbotSend = document.getElementById('chatbot-send');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotMessages = document.getElementById('chatbot-messages');
 
-            // Abrir chatbot
-            chatbotToggle.addEventListener('click', function() {
-                chatbotContainer.classList.add('active');
-                // Pequeña animación para el icono
-                this.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    chatbotToggle.style.transform = '';
-                }, 200);
-            });
 
-            // Cerrar chatbot
-            chatbotClose.addEventListener('click', function() {
-                chatbotContainer.classList.remove('active');
-            });
+const GROQ_API_KEY = "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" // ⚠️ REEMPLAZA CON TU API KEY REAL
+const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+const modeloSeleccionado = "llama-3.3-70b-versatile" // Modelo recomendado
 
-            // Enviar mensaje
-            function sendMessage() {
-                const message = chatbotInput.value.trim();
-                if (message === '') return;
+// Historial de conversación
+let conversationHistory = []
 
-                // Agregar mensaje del usuario
-                addMessage(message, 'user');
-                chatbotInput.value = '';
 
-                // Simular respuesta del bot
-                setTimeout(() => {
-                    const botResponse = getBotResponse(message.toLowerCase());
-                    addMessage(botResponse, 'bot');
-                }, 500);
+const ASTRONEER_SYSTEM_PROMPT = `Eres Houston, un asistente experto y entusiasta en viajes espaciales turísticos.
+
+INFORMACIÓN IMPORTANTE SOBRE TUS SERVICIOS:
+
+🌍 DESTINOS DISPONIBLES:
+- Órbita Terrestre Baja (400km) - Duración: 2 horas | Precio: $250,000
+- Vuelo Lunar (órbita alrededor de la Luna) - Duración: 3 días | Precio: $1,500,000
+- Aterrizaje Lunar (superficie lunar) - Duración: 5 días | Precio: $5,000,000
+- Estación Espacial Nexus (hotel orbital) - Duración: 7 días | Precio: $3,500,000
+- Vuelo alrededor de Marte (próximamente 2027) - Precio: $12,000,000
+
+🚀 VEHÍCULOS ESPACIALES:
+- Nexus Voyager (capacidad: 6 pasajeros) - Para órbita terrestre
+- Lunar Explorer (capacidad: 4 pasajeros) - Para misiones lunares
+- Stellar Cruiser (capacidad: 8 pasajeros) - Para estación espacial
+
+📋 REQUISITOS PARA VIAJAR:
+- Edad mínima: 18 años (14-17 con permiso parental)
+- Certificado médico de aptitud espacial
+- Entrenamiento previo de 2 semanas (incluido en el precio)
+- Seguro de viaje espacial obligatorio
+
+🎁 SERVICIOS INCLUIDOS:
+- Entrenamiento completo de astronauta
+- Traje espacial personalizado
+- Comida y alojamiento durante el viaje
+- Seguro de cancelación
+- Fotos y videos profesionales del viaje
+
+💰 FORMAS DE PAGO:
+- Transferencia bancaria (10% descuento)
+- Criptomonedas (Bitcoin, Ethereum)
+- Planes de financiamiento (hasta 24 meses)
+
+📞 CONTACTO:
+- Email: viajes@astroneer.space
+- Teléfono: +1 (888) 567-9023
+- Oficinas: Cabo Cañaveral, Florida | Boca Chica, Texas
+
+TU PERSONALIDAD:
+- Entusiasta y apasionado por el espacio
+- Profesional pero cercano y amigable
+- Usa emojis relacionados con el espacio (🚀🌍🌙⭐🛸👨‍🚀)
+- Responde SIEMPRE en español
+- Si te preguntan algo fuera de viajes espaciales, amablemente redirige al tema
+- Destaca la seguridad de tus viajes (100% de éxito en 45 misiones)
+
+¡Tus respuestas deben inspirar aventura y emoción por el turismo espacial!`
+
+// ===== FUNCIONES DEL CHATBOT =====
+
+// Abrir chatbot
+chatbotToggle.addEventListener('click', function() {
+    chatbotContainer.classList.add('active');
+    this.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        chatbotToggle.style.transform = '';
+    }, 200);
+});
+
+// Cerrar chatbot
+chatbotClose.addEventListener('click', function() {
+    chatbotContainer.classList.remove('active');
+});
+
+// Agregar mensaje al chat
+function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    // Procesar formato básico (reemplazar saltos de línea)
+    const formattedText = text.replace(/\n/g, '<br>');
+    messageDiv.innerHTML = `<div class="message-content">${formattedText}</div>`;
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Mostrar indicador de escritura
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `<div class="message-content"><em>🚀 Houston está escribiendo...</em></div>`;
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) indicator.remove();
+}
+
+// Verificar que la API Key esté configurada
+function verificarApiKey() {
+    if (!GROQ_API_KEY || GROQ_API_KEY === "gsk_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") {
+        addMessage("⚠️ **Error de configuración**\n\nLa API Key de Groq no ha sido configurada correctamente. Por favor, contacta al administrador del sitio.", "bot");
+        return false;
+    }
+    return true;
+}
+
+// Enviar mensaje a Groq API
+async function sendToGroq(userMessage) {
+    if (!verificarApiKey()) return null;
+    
+    // Agregar mensaje del usuario al historial
+    conversationHistory.push({ role: 'user', content: userMessage });
+    
+    // Limitar historial a los últimos 20 mensajes
+    const historialLimitado = conversationHistory.slice(-20);
+    
+    try {
+        const response = await fetch(GROQ_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GROQ_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: modeloSeleccionado,
+                messages: [
+                    { role: 'system', content: ASTRONEER_SYSTEM_PROMPT },
+                    ...historialLimitado
+                ],
+                temperature: 0.8,
+                max_tokens: 600
+            })
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            console.error('Error Groq:', error);
+            
+            if (response.status === 401) {
+                throw new Error('API Key inválida. Verifica que la clave sea correcta.');
+            } else if (response.status === 429) {
+                throw new Error('Límite de requests alcanzado por hoy (1,000/día). Vuelve mañana.');
+            } else {
+                throw new Error(error.error?.message || 'Error al conectar con el servicio.');
             }
+        }
+        
+        const data = await response.json();
+        const botResponse = data.choices[0].message.content;
+        
+        // Guardar respuesta en historial
+        conversationHistory.push({ role: 'assistant', content: botResponse });
+        
+        return botResponse;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        return `❌ **Error técnico**\n\n${error.message}\n\nPor favor, intenta de nuevo en unos momentos.`;
+    }
+}
 
-            // Agregar mensaje al chat
-            function addMessage(text, sender) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${sender}`;
-                messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
-                chatbotMessages.appendChild(messageDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }
+// Función principal para enviar mensaje
+async function sendMessage() {
+    const message = chatbotInput.value.trim();
+    if (message === '') return;
+    
+    // Agregar mensaje del usuario visualmente
+    addMessage(message, 'user');
+    chatbotInput.value = '';
+    
+    // Mostrar indicador de escritura
+    showTypingIndicator();
+    
+    // Obtener respuesta de Groq
+    const botResponse = await sendToGroq(message);
+    
+    // Remover indicador y mostrar respuesta
+    removeTypingIndicator();
+    if (botResponse) {
+        addMessage(botResponse, 'bot');
+    }
+}
 
-            // Respuestas del bot (simuladas)
-            function getBotResponse(message) {
-                if (message.includes('hola') || message.includes('buenas')) {
-                    return "¡Hola! Soy Houston. ¿En qué puedo ayudarte hoy?";
-                } else if (message.includes('misión') || message.includes('misiones')) {
-                    return "Tenemos 4 misiones programadas para 2026: Artemis IX (orbital), Starlink Batch 45 (comercial), Lunar Resource Prospector (científica) y Nexus-7 (experimental). ¿Quieres detalles de alguna?";
-                } else if (message.includes('cohete') || message.includes('cohetes')) {
-                    return "Nuestra flota incluye cohetes reutilizables de última generación: Starship, Falcon 9, New Glenn y Falcon Heavy. Todos con tecnología de punta para reducir costos y aumentar la frecuencia de lanzamientos.";
-                } else if (message.includes('contacto') || message.includes('contactar')) {
-                    return "Puedes contactarnos a través del formulario en la sección de Contacto, llamando al +1 (321) 867-5309 o escribiendo a contact@nexusaerospace.com";
-                } else if (message.includes('precio') || message.includes('costo') || message.includes('coste')) {
-                    return "Los precios varían según el servicio y la carga. Para misiones satelitales, nuestros costos son hasta 40% más bajos que el promedio de la industria. Contáctanos para un presupuesto personalizado.";
-                } else if (message.includes('gracias')) {
-                    return "¡De nada! Estoy aquí para ayudarte. Si tienes más preguntas, no dudes en consultarme.";
-                } else {
-                    return "No tengo información específica sobre eso. ¿Puedes preguntarme sobre misiones, cohetes, contacto o precios?";
-                }
-            }
+// Función para limpiar historial
+function limpiarHistorial() {
+    conversationHistory = [];
+    addMessage("🧹 **Historial limpiado**\n\n¿Qué destino espacial te gustaría explorar hoy? 🚀", "bot");
+}
 
-            // Eventos del chatbot
-            chatbotSend.addEventListener('click', sendMessage);
-            chatbotInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
+// Función para mostrar menú de opciones rápidas (opcional)
+function mostrarMenuRapido() {
+    const menu = `
+🌟 **Opciones rápidas de Houston** 🌟
 
-            // Cerrar chatbot con Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && chatbotContainer.classList.contains('active')) {
-                    chatbotContainer.classList.remove('active');
-                }
-            });
+1️⃣ Ver destinos disponibles
+2️⃣ Consultar precios
+3️⃣ Requisitos para viajar
+4️⃣ Próximas fechas de lanzamiento
+5️⃣ Contactar con asesor
+
+Responde con el número o escribe tu pregunta ✨
+`;
+    addMessage(menu, 'bot');
+}
+
+// ===== EVENTOS DEL CHATBOT =====
+chatbotSend.addEventListener('click', sendMessage);
+chatbotInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+// Cerrar chatbot con Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && chatbotContainer.classList.contains('active')) {
+        chatbotContainer.classList.remove('active');
+    }
+});
+
+// Mensaje de bienvenida al cargar (opcional - descomentar si quieres que salude al abrir)
+let bienvenidaMostrada = false;
+chatbotToggle.addEventListener('click', function() {
+    if (!bienvenidaMostrada && conversationHistory.length === 0) {
+        setTimeout(() => {
+            addMessage("🚀 **¡Bienvenido/a Soy Houston!**\n\nSoy tu asesor experto en viajes espaciales. ¿Te gustaría conocer nuestros destinos disponibles o prefieres que te cuente sobre los requisitos para viajar al espacio? ✨\n\n*Tip: Escribe 'menú' para ver las opciones rápidas*", "bot");
+        }, 500);
+        bienvenidaMostrada = true;
+    }
+});
         });
     </script>
 </body>
